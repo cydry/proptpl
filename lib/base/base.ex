@@ -1,5 +1,6 @@
 defmodule Proptpl.Base do
   @template_path "priv/statem.tpl"
+  @base "Base"
 
   def load_tpl() do
     open_tpl(@template_path)
@@ -34,5 +35,15 @@ defmodule Proptpl.Base do
       :ok ->
 	data
     end
+  end
+
+  # Naming a module for testing
+  def mod_name(tpl_str, testfile_name) do
+    modify_tpl(tpl_str, @base, testfile_name)
+  end
+
+  defp modify_tpl(tpl_str, target_token, alt_token) do
+    Regex.compile!(target_token)
+    |> Regex.replace(tpl_str, alt_token)
   end
 end
