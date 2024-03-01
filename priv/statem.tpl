@@ -1,1 +1,48 @@
-Hello,World!
+defmodule BaseTest do
+  use ExUnit.Case
+  use PropCheck
+  use PropCheck.StateM
+
+
+  ### PROPERTIES ###
+  property "Stateful Property", [:verbose] do
+    forall cmds <- commands(__MODULE__) do
+      ActualSystem.start_link()
+      {history, state, result} = run_commands(__MODULE__, cmds)
+      ActualSystem.stop()
+
+      (result == :ok)
+      |> aggregate(command_names(cmds))
+      |> when_fail(
+        IO.puts("""
+        History: #{inspect(history)}
+        State: #{inspect(state)}
+        Result: #{inspect(result)}
+        """)
+      )
+    end
+  end
+
+
+  ### MODEL ###
+  def initial_state(), do: %{}
+
+  def command(_state) do
+    oneof([
+      {:call, _mod, _fun, _args}
+    ])
+  end
+
+  def precondition(_state, {:call, _mod, _fun, _args}) do
+    true
+  end
+
+  def postcondition(_state, {:call, _mod, _fun, _args}, _res) do
+    true
+  end
+
+  def next_state(state, _res, {:call, _mod, _fun, _args}) do
+    new_state = state
+    new_state
+  end
+end
