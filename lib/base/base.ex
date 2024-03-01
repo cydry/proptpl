@@ -1,6 +1,8 @@
 defmodule Proptpl.Base do
   @template_path "priv/statem.tpl"
   @base "Base"
+  @tpl_emit_path "test/Base_test.exs"
+
 
   def load_tpl() do
     open_tpl(@template_path)
@@ -45,5 +47,25 @@ defmodule Proptpl.Base do
   defp modify_tpl(tpl_str, target_token, alt_token) do
     Regex.compile!(target_token)
     |> Regex.replace(tpl_str, alt_token)
+  end
+
+  # Emit a testfile to test directory
+  def emit_tpl(tpl_str, mod_name) do
+    name_testfile(mod_name)
+    |> change_pathname(@tpl_emit_path)
+    |> print_tpl(tpl_str)
+  end
+
+  defp name_testfile(mod_name) do
+    String.downcase(mod_name)
+  end
+
+  defp change_pathname(new_name, pathname) do
+    Regex.compile!(@base)
+    |> Regex.replace(pathname, new_name)
+  end
+
+  defp print_tpl(fname, tpl_str) do
+    File.write(fname, tpl_str)
   end
 end
