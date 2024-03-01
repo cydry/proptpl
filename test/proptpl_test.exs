@@ -2,7 +2,7 @@ defmodule ProptplTest do
   use ExUnit.Case
   doctest Proptpl
 
-  test "greets the world" do
-    assert Proptpl.hello() == :world
+  test "run the command" do
+    assert Proptpl.run() == :ok
   end
 end

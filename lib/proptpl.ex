@@ -1,18 +1,13 @@
 defmodule Proptpl do
-  @moduledoc """
-  Documentation for `Proptpl`.
-  """
-
   @doc """
-  Hello world.
+  Run world.
 
   ## Examples
 
-      iex> Proptpl.hello()
-      :world
-
+     iex> Proptpl.run()
+     :ok
   """
-  def hello do
-    :world
+  def run do
+    :ok
   end
 end
