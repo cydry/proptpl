@@ -24,3 +24,6 @@ proptpl-*.tar
 
 # Temporary files, for example, from tests.
 /tmp/
+
+# Ignore executable file (compiled by mix escript.build)
+proptpl

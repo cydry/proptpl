@@ -2,15 +2,8 @@ defmodule Proptpl do
   import Proptpl.Base
   import Proptpl.Cli
 
-  @doc """
-  Run world.
 
-  ## Examples
-
-     iex> Proptpl.run()
-     :ok
-  """
-  def run(argv) do
+  def main(argv) do
     parse_args(argv)
     |> emit_testfile()
   end
