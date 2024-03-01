@@ -11,6 +11,7 @@ defmodule Proptpl do
   def emit_testfile(mod_name) do
     load_tpl()
     |> mod_name(mod_name)
+    |> actsys_name(mod_name)
     |> emit_tpl(mod_name)
   end
 end

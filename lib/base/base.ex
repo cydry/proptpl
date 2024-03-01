@@ -2,6 +2,7 @@ defmodule Proptpl.Base do
   @template_path "priv/statem.tpl"
   @base "Base"
   @tpl_emit_path "test/Base_test.exs"
+  @actualsystem "ActualSystem"
 
 
   def load_tpl() do
@@ -42,6 +43,10 @@ defmodule Proptpl.Base do
   # Naming a module for testing
   def mod_name(tpl_str, testfile_name) do
     modify_tpl(tpl_str, @base, testfile_name)
+  end
+
+  def actsys_name(tpl_str, actsys_name) do
+    modify_tpl(tpl_str, @actualsystem, actsys_name)
   end
 
   defp modify_tpl(tpl_str, target_token, alt_token) do
