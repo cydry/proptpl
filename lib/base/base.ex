@@ -4,8 +4,12 @@ defmodule Proptpl.Base do
   @tpl_emit_path "test/Base_test.exs"
   @actualsystem "ActualSystem"
 
-
   def load_tpl() do
+    Proptpl.Tpl.statem()
+  end
+
+  # deprecated
+  def load_tpl_file() do
     open_tpl(@template_path)
     |> read_tpl!()
     |> close_tpl
