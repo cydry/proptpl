@@ -3,6 +3,7 @@ defmodule ProptplTest do
   doctest Proptpl
 
   alias Proptpl.Base
+  alias Proptpl.Cli
 
   test "run the command" do
     assert Proptpl.run() == :ok
@@ -11,5 +12,26 @@ defmodule ProptplTest do
   test "Naming a module" do
     assert Base.mod_name("defmodule BaseTest", "Named") ==
       "defmodule NamedTest"
+  end
+
+  test "Cli parse arguments" do
+    assert Cli.parse_args([""]) == ""
+    assert Cli.parse_args(["Named"]) == "Named"
+
+    try do
+      Cli.parse_args([])
+    catch
+      what, value ->
+	assert {what,value} ==
+	  {:error, %RuntimeError{message: "Unexpected arguments: "}}
+    end
+
+    try do
+      Cli.parse_args(["first","second"])
+    catch
+      what, value ->
+	assert {what,value} ==
+	  {:error, %RuntimeError{message: "Unexpected arguments: firstsecond"}}
+    end
   end
 end
