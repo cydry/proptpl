@@ -8,10 +8,12 @@ defmodule Proptpl do
     |> emit_testfile()
   end
 
-  def emit_testfile(mod_name) do
+  def emit_testfile({mod_name, emit_path}) do
+    checked_path = check_path(emit_path)
+
     load_tpl()
     |> mod_name(mod_name)
     |> actsys_name(mod_name)
-    |> emit_tpl(mod_name)
+    |> emit_tpl(mod_name, checked_path)
   end
 end

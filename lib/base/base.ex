@@ -1,7 +1,8 @@
 defmodule Proptpl.Base do
   @template_path "priv/statem.tpl"
   @base "Base"
-  @tpl_emit_path "test/Base_test.exs"
+  @tpl_emit_path "test"
+  @tpl_emit_basefile "/Base_test.exs"
   @actualsystem "ActualSystem"
 
   def load_tpl() do
@@ -59,9 +60,9 @@ defmodule Proptpl.Base do
   end
 
   # Emit a testfile to test directory
-  def emit_tpl(tpl_str, mod_name) do
+  def emit_tpl(tpl_str, mod_name, emit_path) do
     name_testfile(mod_name)
-    |> change_pathname(@tpl_emit_path)
+    |> change_pathname(emit_path)
     |> print_tpl(tpl_str)
   end
 
@@ -76,5 +77,15 @@ defmodule Proptpl.Base do
 
   defp print_tpl(fname, tpl_str) do
     File.write(fname, tpl_str)
+  end
+
+  def check_path(""), do: default_path()
+  def check_path(emit_path) when is_binary(emit_path) do
+    emit_path <> @tpl_emit_basefile
+  end
+  def check_path(_any), do: default_path()
+
+  defp default_path() do
+    @tpl_emit_path <> @tpl_emit_basefile
   end
 end
