@@ -56,4 +56,25 @@ defmodule Proptpl.Tpl do
     %StateM{}.tpl
     |> Enum.join("")
   end
+
+  def para_statem() do
+    %StateM{}.tpl
+    |> Enum.join("")
+    |> replace_cmds()
+    |> replace_run_cmds()
+  end
+
+  defp replace_cmds(tpl_str) do
+    Regex.replace(~r/commands\(__MODULE__\)/,
+      tpl_str,
+      "parallel_commands(__MODULE__)"
+    )
+  end
+
+  defp replace_run_cmds(tpl_str) do
+    Regex.replace(~r/run_commands\(__MODULE__, cmds\)/,
+      tpl_str,
+      "parallel_run_commands(__MODULE__, cmds)"
+    )
+  end
 end

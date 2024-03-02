@@ -9,6 +9,10 @@ defmodule Proptpl.Base do
     Proptpl.Tpl.statem()
   end
 
+  def load_para_tpl() do
+    Proptpl.Tpl.para_statem()
+  end
+
   # deprecated
   def load_tpl_file() do
     open_tpl(@template_path)
