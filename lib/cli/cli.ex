@@ -1,6 +1,6 @@
 defmodule Proptpl.Cli do
   def parse_args(argv) do
-    OptionParser.parse(argv, switches: [parallel: :boolean])
+    OptionParser.parse(argv, aliases: [p: :parallel], switches: [parallel: :boolean])
     |> check_parallel()
     |> check_emit_path()
   end
