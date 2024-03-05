@@ -16,7 +16,4 @@ defmodule Proptpl do
     |> actsys_name(mod_name)
     |> emit_tpl(mod_name, checked_path)
   end
-
-  def load_tplfile(:para), do: load_para_tpl()
-  def load_tplfile(_any),  do: load_tpl()
 end

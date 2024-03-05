@@ -14,11 +14,11 @@ defmodule BaseTest do
       (result == :ok)
       |> aggregate(command_names(cmds))
       |> when_fail(
-        IO.puts("""
+        IO.puts('''
         History: #{inspect(history)}
         State: #{inspect(state)}
         Result: #{inspect(result)}
-        """)
+        ''')
       )
     end
   end

@@ -5,12 +5,8 @@ defmodule Proptpl.Base do
   @tpl_emit_basefile "/Base_test.exs"
   @actualsystem "ActualSystem"
 
-  def load_tpl() do
-    Proptpl.Tpl.statem()
-  end
-
-  def load_para_tpl() do
-    Proptpl.Tpl.para_statem()
+  def load_tplfile(emit_typ) do
+    Proptpl.Tpl.statem(emit_typ)
   end
 
   # deprecated

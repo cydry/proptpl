@@ -38,4 +38,9 @@ defmodule ProptplTest do
 	  {:error, %RuntimeError{message: "Unexpected arguments: firstsecond"}}
     end
   end
+
+  test "load_tplfile for stateful test" do
+    assert Base.load_tplfile(:normal) |> Base.mod_name("Base") |> Base.actsys_name("ActualSystem") ==
+      File.read!("priv/statem.txt")
+  end
 end

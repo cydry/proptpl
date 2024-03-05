@@ -52,17 +52,19 @@ defmodule Proptpl.Tpl do
     ]
   end
 
-  def statem() do
+  def statem(emit_type) do
     %StateM{}.tpl
     |> Enum.join("")
+    |> parallelize(emit_type)
   end
 
-  def para_statem() do
-    %StateM{}.tpl
-    |> Enum.join("")
+  defp parallelize(tpl_str, :para) do
+    tpl_str
     |> replace_cmds()
     |> replace_run_cmds()
   end
+  defp parallelize(tpl_str, :normal), do: tpl_str
+  defp parallelize(tpl_str, _others), do: tpl_str
 
   defp replace_cmds(tpl_str) do
     Regex.replace(~r/commands\(__MODULE__\)/,
