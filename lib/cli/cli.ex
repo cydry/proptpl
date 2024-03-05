@@ -20,6 +20,10 @@ defmodule Proptpl.Cli do
     {module_name, emit_path, emit_type}
   end
 
+  defp check_emit_path({_emit_type, [""], _errors}) do
+    raise "Bad arguments: Empty module name"
+  end
+
   defp check_emit_path({emit_type, [module_name], _errors}) do
     {module_name, :nopath, emit_type}
   end

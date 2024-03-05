@@ -12,8 +12,15 @@ defmodule ProptplTest do
   end
 
   test "Cli parse arguments" do
-    assert Cli.parse_args([""]) == ""
-    assert Cli.parse_args(["Named"]) == "Named"
+    assert Cli.parse_args(["Named"]) == {"Named", :nopath, :normal}
+
+    try do
+      Cli.parse_args([""])
+    catch
+      what, value ->
+	assert {what,value} ==
+	  {:error, %RuntimeError{message: "Bad arguments: Empty module name"}}
+    end
 
     try do
       Cli.parse_args([])
