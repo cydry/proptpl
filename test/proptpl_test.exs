@@ -12,7 +12,7 @@ defmodule ProptplTest do
   end
 
   test "Cli parse arguments" do
-    assert Cli.parse_args(["Named"]) == {"Named", :nopath, :normal}
+    assert Cli.parse_args(["Named"]) == {"Named", :nopath, :normal, :nofsm}
 
     try do
       Cli.parse_args([""])
@@ -40,7 +40,12 @@ defmodule ProptplTest do
   end
 
   test "load_tplfile for stateful test" do
-    assert Base.load_tplfile(:normal) |> Base.mod_name("Base") |> Base.actsys_name("ActualSystem") ==
+    assert Base.load_tplfile(:normal, :stateful) |> Base.mod_name("Base") |> Base.actsys_name("ActualSystem") ==
       File.read!("priv/statem.txt")
+  end
+
+  test "load_tplfile for fsm stateful test" do
+    assert Base.load_tplfile(:normal, :fsm) |> Base.mod_name("Base") |> Base.actsys_name("ActualSystem") ==
+      File.read!("priv/fsm_statem.txt")
   end
 end

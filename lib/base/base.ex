@@ -5,7 +5,13 @@ defmodule Proptpl.Base do
   @tpl_emit_basefile "/Base_test.exs"
   @actualsystem "ActualSystem"
 
-  def load_tplfile(emit_typ) do
+  def load_tplfile(emit_typ, :stateful) do
+    Proptpl.Tpl.statem(emit_typ)
+  end
+  def load_tplfile(emit_typ, :fsm) do
+    Proptpl.Tpl.fsm_statem(emit_typ)
+  end
+  def load_tplfile(emit_typ, _any) do
     Proptpl.Tpl.statem(emit_typ)
   end
 
